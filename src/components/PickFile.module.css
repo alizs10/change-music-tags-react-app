@@ -1,0 +1,19 @@
+.container {
+    padding: 1rem;
+    background-color: #fff;
+    width: 75%;
+    align-self: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.dnone {
+    display: none;
+}
+
+.upperCase {
+    color: #000;
+    text-transform: uppercase;
+}
