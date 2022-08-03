@@ -8,7 +8,7 @@ const jsmediatags = window.jsmediatags;
 export default function PickFile() {
 
 
-    const { setFileExists, setTitle, setAlbum, setArtist, setGenre, setYear, setTrack, setCover } = useContext(MusicContext)
+    const { setFileExists, title,setTitle, setAlbum, setArtist, setGenre, setYear, setTrack, setCover } = useContext(MusicContext)
 
     const fileInput = useRef()
     const handlePickFile = () => {
@@ -62,7 +62,7 @@ export default function PickFile() {
     return (
         <div className={styles.container}>
 
-            <span className={styles.upperCase}>pick your music and make it more awesome ...</span>
+            <span className={styles.upperCase}>{title ? title : "pick your music and make it more awesome ..."}</span>
             <input ref={fileInput} className={styles.dnone} type="file" accept=".mp3" onChange={e => handleFile(e)} />
             <Button variant="outlined" style={{ margin: "1rem" }} color="secondary" onClick={handlePickFile}>
                 <AttachFileOutlinedIcon sx={{ fontSize: 20, marginRight: 2 }} />
