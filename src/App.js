@@ -1,13 +1,12 @@
-
 import './App.css';
-import Main from './components/Main';
-import PickFile from './components/PickFile';
+import Header from './components/Header';
+import MusicContainer from './components/MusicContainer';
 
 function App() {
   return (
     <div className="App">
-      <Main />
-      <PickFile />
+      <Header />
+      <MusicContainer />
     </div>
   );
 }

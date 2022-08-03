@@ -1,11 +1,36 @@
 .App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.header {
   background-color: #003459;
+  color: white;
   padding-bottom: 3rem;
   text-align: center;
   display: flex;
   justify-content: center;
   flex-direction: column;
   gap: 2rem;
-  color: white;
+
 }
 
+.broken-image {
+  width: 12rem;
+  height: 12rem;
+  border-radius: 5px;
+  background-color: #f8f9fa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  color: #adb5bd;
+}
+
+
+.metadata {
+  display: flex;
+  gap: .5rem;
+  font-size: .8rem;
+}

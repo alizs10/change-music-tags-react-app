@@ -36,9 +36,9 @@ export default function PickFile() {
     return (
         <div className={styles.container}>
 
-            <span className={styles.upperCase}>pick your music and make it awesome ...</span>
+            <span className={styles.upperCase}>pick your music and make it more awesome ...</span>
             <input ref={fileInput} className={styles.dnone} type="file" accept=".mp3" onChange={e => handleFile(e)} />
-            <Button variant="outlined" color="secondary" onClick={handlePickFile}>
+            <Button variant="outlined" style={{margin: "1rem"}} color="secondary" onClick={handlePickFile}>
                 <AttachFileOutlinedIcon sx={{ fontSize: 20, marginRight: 2 }} />
                 Choose</Button>
         </div>
