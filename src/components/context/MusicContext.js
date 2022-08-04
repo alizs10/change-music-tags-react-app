@@ -17,6 +17,8 @@ const MusicContext = React.createContext({
     setTrack: () => { },
     cover: "",
     setCover: () => { },
+    file: {},
+    setFile: () => { },
 })
 
 export default MusicContext;

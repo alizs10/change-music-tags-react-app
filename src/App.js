@@ -14,6 +14,7 @@ function App() {
   const [year, setYear] = useState("")
   const [track, setTrack] = useState("")
   const [cover, setCover] = useState("")
+  const [file, setFile] = useState(null)
 
   return (
     <div className="App">
@@ -33,7 +34,9 @@ function App() {
         track,
         setTrack,
         cover,
-        setCover
+        setCover,
+        file,
+        setFile
       }}>
         <Header />
         {fileExists ? <MusicContainer /> : ""}

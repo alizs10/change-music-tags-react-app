@@ -8,7 +8,7 @@ const jsmediatags = window.jsmediatags;
 export default function PickFile() {
 
 
-    const { setFileExists, title,setTitle, setAlbum, setArtist, setGenre, setYear, setTrack, setCover } = useContext(MusicContext)
+    const { setFile,setFileExists, title,setTitle, setAlbum, setArtist, setGenre, setYear, setTrack, setCover } = useContext(MusicContext)
 
     const fileInput = useRef()
     const handlePickFile = () => {
@@ -17,6 +17,7 @@ export default function PickFile() {
 
     const handleFile = (e) => {
         let file = e.target.files[0];
+        setFile(file)
         getMetadata(file)
     }
 

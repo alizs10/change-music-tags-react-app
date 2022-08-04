@@ -4,10 +4,16 @@ import MusicContext from './context/MusicContext'
 import Metadata from './Metadata'
 import CloudDownloadOutlinedIcon from '@mui/icons-material/CloudDownloadOutlined';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
+
+import axios from 'axios';
+axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+
 export default function MetadataContainer() {
 
-  const { title, album, artist, genre, track, year } = useContext(MusicContext)
+  const { file, title, setTitle, album, setAlbum, artist, setArtist, genre, setGenre, track, setTrack, year, setYear } = useContext(MusicContext)
   const [modalVisibility, setModalVisibility] = useState(false)
+
+
   const style = {
     position: 'absolute',
     top: '50%',
@@ -19,6 +25,32 @@ export default function MetadataContainer() {
     p: 4,
     borderRadius: '5px'
   };
+
+  const handleDownloadNewMusicFile = async () => {
+
+    let url = "http://localhost:8000/api/update-tags";
+
+    let formData = new FormData();
+    formData.append('music', file)
+    formData.append('title', title)
+    formData.append('album', album)
+    formData.append('artist', artist)
+    formData.append('genre', genre)
+    formData.append('track_number', track)
+    formData.append('year', year)
+
+    const res = await axios.post(url, formData, {
+      accept: 'application/json',
+    })
+
+    if (res.data.status) {
+      let dlUrl = res.data.dlUrl
+      window.open(dlUrl)
+    }
+
+  }
+
+
   return (
     <div>
       <Metadata name="Title" value={title} />
@@ -43,27 +75,27 @@ export default function MetadataContainer() {
             </Grid>
             <Grid item xs={6}>
               <ListItem>
-                <TextField fullWidth id="outlined-basic" label="Title" variant="outlined" value={title} />
+                <TextField fullWidth id="outlined-basic" label="Title" onChange={e => setTitle(e.target.value)} variant="outlined" value={title} />
               </ListItem>
             </Grid>
             <Grid item xs={6}>
               <ListItem>
-                <TextField fullWidth id="outlined-basic" label="Album" variant="outlined" value={album} />
+                <TextField fullWidth id="outlined-basic" label="Album" onChange={e => setAlbum(e.target.value)} variant="outlined" value={album} />
               </ListItem>
             </Grid>
             <Grid item xs={6}>
               <ListItem>
-                <TextField fullWidth id="outlined-basic" label="Artist" variant="outlined" value={artist} />
+                <TextField fullWidth id="outlined-basic" label="Artist" onChange={e => setArtist(e.target.value)} variant="outlined" value={artist} />
               </ListItem>
             </Grid>
             <Grid item xs={6}>
               <ListItem>
-                <TextField fullWidth id="outlined-basic" label="Track" variant="outlined" value={track} />
+                <TextField fullWidth id="outlined-basic" label="Track" onChange={e => setTrack(e.target.value)} variant="outlined" value={track} />
               </ListItem>
             </Grid>
             <Grid item xs={6}>
               <ListItem>
-                <TextField fullWidth id="outlined-basic" label="Year" variant="outlined" value={year} />
+                <TextField fullWidth id="outlined-basic" label="Year" onChange={e => setYear(e.target.value)} variant="outlined" value={year} />
               </ListItem>
             </Grid>
             <Grid item xs={6}>
@@ -72,9 +104,9 @@ export default function MetadataContainer() {
                   fullWidth
                   variant="outlined"
                   component="label"
-                  style={{padding:"14px"}}
+                  style={{ padding: "14px" }}
                 >
-                  <ImageOutlinedIcon style={{marginRight: "1rem"}}/>
+                  <ImageOutlinedIcon style={{ marginRight: "1rem" }} />
                   Upload Cover Art
                   <input
                     type="file"
@@ -92,14 +124,11 @@ export default function MetadataContainer() {
                   variant="outlined"
                   component="label"
                   color='success'
-                  style={{padding:"14px"}}
+                  style={{ padding: "14px" }}
+                  onClick={handleDownloadNewMusicFile}
                 >
-                  <CloudDownloadOutlinedIcon style={{marginRight: "1rem"}}/>
+                  <CloudDownloadOutlinedIcon style={{ marginRight: "1rem" }} />
                   Save And Download
-                  <input
-                    type="file"
-                    hidden
-                  />
                 </Button>
 
               </ListItem>
