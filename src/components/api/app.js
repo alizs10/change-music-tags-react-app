@@ -23,7 +23,7 @@ export const update = async data => {
     let url = `${baseUrl}/update`;
     return await axios.post(url, data, {
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'multipart/form-data',
             'Accept': 'application/json'
         }
     })

@@ -8,7 +8,7 @@ import { update } from './api/app';
 
 export default function MetadataContainer() {
 
-  const { title, setTitle, album, setAlbum, artist, setArtist, genre, setGenre, track, setTrack, year, setYear, updateAbility, setUpdateAbility } = useContext(MusicContext)
+  const { title, setTitle, album, setAlbum, artist, setArtist, genre, setGenre, track, setTrack, year, setYear, cover, setCover, updateAbility, setUpdateAbility } = useContext(MusicContext)
   const [modalVisibility, setModalVisibility] = useState(false)
 
   const style = {
@@ -33,6 +33,7 @@ export default function MetadataContainer() {
     formData.append('genre', genre)
     formData.append('track_number', track)
     formData.append('year', year)
+    formData.append('cover', cover)
 
     let res = await update(formData)
 
@@ -109,6 +110,7 @@ export default function MetadataContainer() {
                   variant="outlined"
                   component="label"
                   style={{ padding: "14px" }}
+                  onClick={e => setCover(e.target.files[0])}
                 >
                   <ImageOutlinedIcon style={{ marginRight: "1rem" }} />
                   Upload Cover Art
