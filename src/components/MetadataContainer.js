@@ -110,10 +110,10 @@ export default function MetadataContainer() {
                   variant="outlined"
                   component="label"
                   style={{ padding: "14px" }}
-                  onClick={e => setCover(e.target.files[0])}
+                  onChange={e => setCover(e.target.files[0])}
                 >
                   <ImageOutlinedIcon style={{ marginRight: "1rem" }} />
-                  Upload Cover Art
+                  {(cover && !("format" in cover)) ? cover.name : "Upload Cover Art"}
                   <input
                     type="file"
                     hidden
