@@ -5,6 +5,9 @@ import styles from './PickFile.module.css'
 import MusicContext from './context/MusicContext'
 import { upload } from './api/app';
 import ProgressBar from './ProgressBar';
+
+import { Store } from 'react-notifications-component';
+
 const jsmediatags = window.jsmediatags;
 
 export default function PickFile() {
@@ -18,18 +21,27 @@ export default function PickFile() {
         fileInput.current.click()
     }
 
-    useEffect(() => {
-        console.log(progressBar)
-    }, [progressBar])
-
     const handleFile = async e => {
         let file = e.target.files[0];
-
+        setProgressBar(0)
         let formData = new FormData();
         formData.append('music', file);
         let res = await upload(formData, setProgressBar);
 
         if (res.data.status === "success") {
+            Store.addNotification({
+                title: "Wonderful!",
+                message: "Your music has been successfully uploaded",
+                type: "success",
+                insert: "top",
+                container: "top-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                  duration: 5000,
+                  onScreen: true
+                }
+              });
             localStorage.setItem('fileID', res.data.fileID);
             getMetadata(file)
             setUpdateAbility(true)
@@ -57,7 +69,7 @@ export default function PickFile() {
                         base64String += String.fromCharCode(data[i]);
                     }
                     setCover({ format, base64String })
-                }else {
+                } else {
                     setCover("")
                 }
                 tags.title ? setTitle(tags.title) : setTitle(fileName);
@@ -79,12 +91,14 @@ export default function PickFile() {
 
     return (
         <div className={styles.container}>
-            <ProgressBar progressBar={progressBar}/>
+            <ProgressBar progressBar={progressBar} />
             <span className={styles.upperCase}>{title ? title : "pick your music and make it more awesome ..."}</span>
             <input ref={fileInput} className={styles.dnone} type="file" accept=".mp3" onChange={e => handleFile(e)} />
             <Button variant="outlined" style={{ margin: "1rem" }} color="secondary" onClick={handlePickFile}>
                 <AttachFileOutlinedIcon sx={{ fontSize: 20, marginRight: 2 }} />
                 Choose</Button>
+
+           
         </div>
     )
 }

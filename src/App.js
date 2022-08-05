@@ -4,6 +4,9 @@ import MusicContext from './components/context/MusicContext';
 import Header from './components/Header';
 import MusicContainer from './components/MusicContainer';
 
+import { ReactNotifications } from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
+
 function App() {
 
   const [fileExists, setFileExists] = useState(false)
@@ -18,6 +21,7 @@ function App() {
 
   return (
     <div className="App">
+      <ReactNotifications />
       <MusicContext.Provider value={{
         fileExists,
         setFileExists,
@@ -38,6 +42,7 @@ function App() {
         updateAbility,
         setUpdateAbility
       }}>
+
         <Header />
         {fileExists ? <MusicContainer /> : ""}
       </MusicContext.Provider>
