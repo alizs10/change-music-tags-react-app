@@ -51,8 +51,9 @@ export default function PickFile() {
                         base64String += String.fromCharCode(data[i]);
                     }
                     setCover({ format, base64String })
+                }else {
+                    setCover("")
                 }
-
                 tags.title ? setTitle(tags.title) : setTitle(fileName);
                 tags.album ? setAlbum(tags.album) : setAlbum("-");
                 tags.artist ? setArtist(tags.artist) : setArtist("-");
