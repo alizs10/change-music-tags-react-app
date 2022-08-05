@@ -4,13 +4,11 @@ import MusicContext from './context/MusicContext'
 import Metadata from './Metadata'
 import CloudDownloadOutlinedIcon from '@mui/icons-material/CloudDownloadOutlined';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
-
-import axios from 'axios';
-axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+import { update } from './api/app';
 
 export default function MetadataContainer() {
 
-  const { file, title, setTitle, album, setAlbum, artist, setArtist, genre, setGenre, track, setTrack, year, setYear } = useContext(MusicContext)
+  const { title, setTitle, album, setAlbum, artist, setArtist, genre, setGenre, track, setTrack, year, setYear } = useContext(MusicContext)
   const [modalVisibility, setModalVisibility] = useState(false)
 
 
@@ -28,10 +26,8 @@ export default function MetadataContainer() {
 
   const handleDownloadNewMusicFile = async () => {
 
-    let url = "http://localhost:8000/api/update-tags";
-
     let formData = new FormData();
-    formData.append('music', file)
+    formData.append('fileID', localStorage.getItem('fileID'));
     formData.append('title', title)
     formData.append('album', album)
     formData.append('artist', artist)
@@ -39,11 +35,9 @@ export default function MetadataContainer() {
     formData.append('track_number', track)
     formData.append('year', year)
 
-    const res = await axios.post(url, formData, {
-      accept: 'application/json',
-    })
+    let res = await update(formData)
 
-    if (res.data.status) {
+    if (res.data.status === "success") {
       let dlUrl = res.data.dlUrl
       window.open(dlUrl)
     }

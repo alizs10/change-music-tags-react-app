@@ -11,3 +11,16 @@ export const upload = async data => {
         }
     })
 }
+
+
+export const update = async data => {
+
+    let url = `${baseUrl}/update`;
+    return await axios.post(url, data, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    })
+
+}
