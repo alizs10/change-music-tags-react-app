@@ -1,4 +1,12 @@
-
+.social-container {
+  width: 90%;
+  margin: auto;
+  padding-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: .5rem;
+  color: #fff;
+}
 
 .header {
   background-color: #003459;

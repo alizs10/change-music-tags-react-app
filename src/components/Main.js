@@ -6,7 +6,7 @@ export default function Main() {
     return (
         <div className={styles.container}>
             <HeadphonesOutlinedIcon sx={{fontSize: 60}} />
-            <h1>Correct Your Music's MetaTags</h1>
+            <h1>Correct Your Musics Tags</h1>
         </div>
     )
 }
