@@ -8,9 +8,8 @@ import { update } from './api/app';
 
 export default function MetadataContainer() {
 
-  const { title, setTitle, album, setAlbum, artist, setArtist, genre, setGenre, track, setTrack, year, setYear } = useContext(MusicContext)
+  const { title, setTitle, album, setAlbum, artist, setArtist, genre, setGenre, track, setTrack, year, setYear, updateAbility, setUpdateAbility } = useContext(MusicContext)
   const [modalVisibility, setModalVisibility] = useState(false)
-
 
   const style = {
     position: 'absolute',
@@ -38,6 +37,9 @@ export default function MetadataContainer() {
     let res = await update(formData)
 
     if (res.data.status === "success") {
+      localStorage.removeItem('fileID')
+      setUpdateAbility(false)
+      setModalVisibility(false)
       let dlUrl = res.data.dlUrl
       window.open(dlUrl)
     }
@@ -54,7 +56,10 @@ export default function MetadataContainer() {
       <Metadata name="Genre" value={genre ?? "-"} />
       <Metadata name="Year" value={year ?? "-"} />
 
-      <Button style={{ marginTop: "1rem" }} variant="outlined" onClick={() => setModalVisibility(true)}>Change Tags</Button>
+      {updateAbility ? (
+        <Button style={{ marginTop: "1rem" }} variant="outlined" onClick={() => setModalVisibility(true)}>Change Tags</Button>
+      ) : null}
+
 
       {modalVisibility ? <Modal
         open={modalVisibility}
@@ -84,6 +89,11 @@ export default function MetadataContainer() {
             </Grid>
             <Grid item xs={6}>
               <ListItem>
+                <TextField fullWidth id="outlined-basic" label="Genre" onChange={e => setGenre(e.target.value)} variant="outlined" value={genre} />
+              </ListItem>
+            </Grid>
+            <Grid item xs={6}>
+              <ListItem>
                 <TextField fullWidth id="outlined-basic" label="Track" onChange={e => setTrack(e.target.value)} variant="outlined" value={track} />
               </ListItem>
             </Grid>
@@ -92,7 +102,7 @@ export default function MetadataContainer() {
                 <TextField fullWidth id="outlined-basic" label="Year" onChange={e => setYear(e.target.value)} variant="outlined" value={year} />
               </ListItem>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <ListItem>
                 <Button
                   fullWidth
@@ -115,7 +125,7 @@ export default function MetadataContainer() {
               <ListItem>
                 <Button
                   fullWidth
-                  variant="outlined"
+                  variant="contained"
                   component="label"
                   color='success'
                   style={{ padding: "14px" }}

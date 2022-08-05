@@ -9,7 +9,7 @@ const jsmediatags = window.jsmediatags;
 export default function PickFile() {
 
 
-    const { setFileExists, title, setTitle, setAlbum, setArtist, setGenre, setYear, setTrack, setCover } = useContext(MusicContext)
+    const { setUpdateAbility, setFileExists, title, setTitle, setAlbum, setArtist, setGenre, setYear, setTrack, setCover } = useContext(MusicContext)
 
     const fileInput = useRef()
     const handlePickFile = () => {
@@ -26,6 +26,7 @@ export default function PickFile() {
         if (res.data.status === "success") {
             localStorage.setItem('fileID', res.data.fileID);
             getMetadata(file)
+            setUpdateAbility(true)
         }
 
     }

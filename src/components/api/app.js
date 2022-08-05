@@ -2,6 +2,7 @@ import axios from "axios";
 import { baseUrl } from "../config/app";
 
 export const upload = async data => {
+    console.log(baseUrl);
     let url = `${baseUrl}/upload`;
 
     return await axios.post(url, data, {

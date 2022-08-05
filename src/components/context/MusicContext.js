@@ -16,7 +16,9 @@ const MusicContext = React.createContext({
     track: "",
     setTrack: () => { },
     cover: "",
-    setCover: () => { }
+    setCover: () => { },
+    updateAbility: "",
+    setUpdateAbility: () => { }
 })
 
 export default MusicContext;

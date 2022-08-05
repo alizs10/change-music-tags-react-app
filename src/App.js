@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import MusicContext from './components/context/MusicContext';
 import Header from './components/Header';
 import MusicContainer from './components/MusicContainer';
 
 function App() {
+useEffect(() => {
+  console.log(process.env.REACT_APP_API_BASE_URL)
+})
 
   const [fileExists, setFileExists] = useState(false)
   const [title, setTitle] = useState("")
@@ -14,6 +17,7 @@ function App() {
   const [year, setYear] = useState("")
   const [track, setTrack] = useState("")
   const [cover, setCover] = useState("")
+  const [updateAbility, setUpdateAbility] = useState(true)
 
   return (
     <div className="App">
@@ -33,7 +37,9 @@ function App() {
         track,
         setTrack,
         cover,
-        setCover
+        setCover,
+        updateAbility,
+        setUpdateAbility
       }}>
         <Header />
         {fileExists ? <MusicContainer /> : ""}
