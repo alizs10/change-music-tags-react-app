@@ -3,22 +3,31 @@ import AttachFileOutlinedIcon from '@mui/icons-material/AttachFileOutlined';
 import React, { useContext, useRef, useState } from 'react'
 import styles from './PickFile.module.css'
 import MusicContext from './context/MusicContext'
+import { upload } from './api/app';
 const jsmediatags = window.jsmediatags;
 
 export default function PickFile() {
 
 
-    const { setFile,setFileExists, title,setTitle, setAlbum, setArtist, setGenre, setYear, setTrack, setCover } = useContext(MusicContext)
+    const { setFileExists, title, setTitle, setAlbum, setArtist, setGenre, setYear, setTrack, setCover } = useContext(MusicContext)
 
     const fileInput = useRef()
     const handlePickFile = () => {
         fileInput.current.click()
     }
 
-    const handleFile = (e) => {
+    const handleFile = async e => {
         let file = e.target.files[0];
-        setFile(file)
-        getMetadata(file)
+
+        let formData = new FormData();
+        formData.append('music', file);
+        let res = await upload(formData);
+
+        if (res.data.status === "success") {
+            localStorage.setItem('fileID', res.data.fileID);
+            getMetadata(file)
+        }
+
     }
 
 
