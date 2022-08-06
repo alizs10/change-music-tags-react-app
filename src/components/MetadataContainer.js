@@ -13,21 +13,25 @@ export default function MetadataContainer() {
 
 
 
-  const handleDownloadNewMusicFile = async () => {
+  const handleDownloadNewMusicFile = async (data) => {
 
     let formData = new FormData();
     formData.append('fileID', localStorage.getItem('fileID'));
-    formData.append('title', title)
-    formData.append('album', album)
-    formData.append('artist', artist)
-    formData.append('genre', genre)
-    formData.append('track_number', track)
-    formData.append('year', year)
-    formData.append('cover', cover)
+    formData.append('title', data.title)
+    formData.append('album', data.album)
+    formData.append('artist', data.artist)
+    formData.append('genre', data.genre)
+    formData.append('track_number', data.track)
+    formData.append('year', data.year)
+    if (cover && !("format" in cover)) {
+      formData.append('cover', cover)
+    }
+
+
 
     let res = await update(formData)
 
-    if (res.data.status === "success") {
+    if (res && res.data.status === "success") {
       localStorage.removeItem('fileID')
       setUpdateAbility(false)
       setModalVisibility(false)
@@ -52,7 +56,7 @@ export default function MetadataContainer() {
       ) : null}
 
 
-      {modalVisibility ? <EditTagsWindow modalVisibility={modalVisibility} setModalVisibility={setModalVisibility} /> : null}
+      {modalVisibility ? <EditTagsWindow handleDownloadNewMusicFile={handleDownloadNewMusicFile} modalVisibility={modalVisibility} setModalVisibility={setModalVisibility} /> : null}
 
     </div>
   )

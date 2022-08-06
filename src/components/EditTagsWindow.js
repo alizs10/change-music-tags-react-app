@@ -10,7 +10,7 @@ import MusicContext from './context/MusicContext';
 import * as yup from 'yup';
 
 
-function EditTagsWindow({ modalVisibility, setModalVisibility }) {
+function EditTagsWindow({ handleDownloadNewMusicFile, modalVisibility, setModalVisibility }) {
 
     const { title, album, artist, genre, track, year, cover, setCover } = useContext(MusicContext)
 
@@ -40,7 +40,7 @@ function EditTagsWindow({ modalVisibility, setModalVisibility }) {
     };
 
     const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg'];
-    const FILE_SIZE = "2000000";
+
     const validationSchema = yup.object({
         title: yup.string().required().max(99),
         album: yup.string().required().max(55),
@@ -64,17 +64,21 @@ function EditTagsWindow({ modalVisibility, setModalVisibility }) {
 
             <Formik
                 initialValues={{ title, album, artist, track, year, genre }}
-                onSubmit={(data) => {
-                    console.log(data);
+                onSubmit={(data, { setSubmitting }) => {
+                    handleDownloadNewMusicFile(data)
+                    setTimeout(() => {
+                        
+                        setSubmitting(false);
+                    }, 400);
                 }}
                 validationSchema={validationSchema}
                 validate={() => {
                     const errors = {};
-                    if (cover && !(SUPPORTED_FORMATS.includes(cover.type))) {
+                    if (cover && !("format" in cover) && !(SUPPORTED_FORMATS.includes(cover.type))) {
                         errors.cover = "Image Format not supported. supported formats are jpg,jpeg"
                     }
 
-                    else if (cover.size > 2000000) {
+                    else if (cover && !("formar" in cover) && cover.size > 2000000) {
                         errors.cover = "Image is too large. maximum image size is 2 mb"
                     }
                     return errors;
@@ -147,7 +151,7 @@ function EditTagsWindow({ modalVisibility, setModalVisibility }) {
                                                 variant="outlined"
                                                 component="label"
                                                 style={{ padding: "14px" }}
-                                                color={errors.cover ? "error" : "primary" }
+                                                color={errors.cover ? "error" : "primary"}
                                             >
                                                 <ImageOutlinedIcon style={{ marginRight: "1rem" }} />
                                                 {(cover && !("format" in cover) ? cover.name : "Upload Cover Art")}
@@ -158,7 +162,7 @@ function EditTagsWindow({ modalVisibility, setModalVisibility }) {
                                     {errors.cover ? (
                                         <Grid item xs={12}>
                                             <ListItem sx={{ color: 'red', fontSize: ".7rem" }}>
-                                                <InfoOutlinedIcon sx={{ marginRight: ".5rem" ,fontSize: "1rem" }} />
+                                                <InfoOutlinedIcon sx={{ marginRight: ".5rem", fontSize: "1rem" }} />
                                                 {errors.cover}
                                             </ListItem>
                                         </Grid>
