@@ -1,27 +1,17 @@
-import { Box, Button, Grid, ListItem, Modal, TextField, Typography } from '@mui/material'
+import { Button } from '@mui/material'
 import React, { useContext, useState } from 'react'
 import MusicContext from './context/MusicContext'
 import Metadata from './Metadata'
-import CloudDownloadOutlinedIcon from '@mui/icons-material/CloudDownloadOutlined';
-import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
+
 import { update } from './api/app';
+import EditTagsWindow from './EditTagsWindow';
 
 export default function MetadataContainer() {
 
   const { title, setTitle, album, setAlbum, artist, setArtist, genre, setGenre, track, setTrack, year, setYear, cover, setCover, updateAbility, setUpdateAbility } = useContext(MusicContext)
   const [modalVisibility, setModalVisibility] = useState(false)
 
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 800,
-    bgcolor: 'background.paper',
-    boxShadow: 24,
-    p: 4,
-    borderRadius: '5px'
-  };
+
 
   const handleDownloadNewMusicFile = async () => {
 
@@ -62,88 +52,7 @@ export default function MetadataContainer() {
       ) : null}
 
 
-      {modalVisibility ? <Modal
-        open={modalVisibility}
-        onClose={() => setModalVisibility(false)}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-            <Grid item xs={12}>
-              <ListItem>Change Tags</ListItem>
-            </Grid>
-            <Grid item xs={6}>
-              <ListItem>
-                <TextField fullWidth id="outlined-basic" label="Title" onChange={e => setTitle(e.target.value)} variant="outlined" value={title} />
-              </ListItem>
-            </Grid>
-            <Grid item xs={6}>
-              <ListItem>
-                <TextField fullWidth id="outlined-basic" label="Album" onChange={e => setAlbum(e.target.value)} variant="outlined" value={album} />
-              </ListItem>
-            </Grid>
-            <Grid item xs={6}>
-              <ListItem>
-                <TextField fullWidth id="outlined-basic" label="Artist" onChange={e => setArtist(e.target.value)} variant="outlined" value={artist} />
-              </ListItem>
-            </Grid>
-            <Grid item xs={6}>
-              <ListItem>
-                <TextField fullWidth id="outlined-basic" label="Genre" onChange={e => setGenre(e.target.value)} variant="outlined" value={genre} />
-              </ListItem>
-            </Grid>
-            <Grid item xs={6}>
-              <ListItem>
-                <TextField fullWidth id="outlined-basic" label="Track" onChange={e => setTrack(e.target.value)} variant="outlined" value={track} />
-              </ListItem>
-            </Grid>
-            <Grid item xs={6}>
-              <ListItem>
-                <TextField fullWidth id="outlined-basic" label="Year" onChange={e => setYear(e.target.value)} variant="outlined" value={year} />
-              </ListItem>
-            </Grid>
-            <Grid item xs={12}>
-              <ListItem>
-                <Button
-                  fullWidth
-                  variant="outlined"
-                  component="label"
-                  style={{ padding: "14px" }}
-                  onChange={e => setCover(e.target.files[0])}
-                >
-                  <ImageOutlinedIcon style={{ marginRight: "1rem" }} />
-                  {(cover && !("format" in cover)) ? cover.name : "Upload Cover Art"}
-                  <input
-                    type="file"
-                    hidden
-                  />
-                </Button>
-
-              </ListItem>
-            </Grid
-            >
-            <Grid item xs={12}>
-              <ListItem>
-                <Button
-                  fullWidth
-                  variant="contained"
-                  component="label"
-                  color='success'
-                  style={{ padding: "14px" }}
-                  onClick={handleDownloadNewMusicFile}
-                >
-                  <CloudDownloadOutlinedIcon style={{ marginRight: "1rem" }} />
-                  Save And Download
-                </Button>
-
-              </ListItem>
-            </Grid>
-
-
-          </Grid>
-        </Box>
-      </Modal> : null}
+      {modalVisibility ? <EditTagsWindow modalVisibility={modalVisibility} setModalVisibility={setModalVisibility} /> : null}
 
     </div>
   )

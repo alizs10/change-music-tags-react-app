@@ -26,6 +26,7 @@ export default function PickFile() {
         setProgressBar(0)
         let formData = new FormData();
         formData.append('music', file);
+
         let res = await upload(formData, setProgressBar);
 
         if (res.data.status === "success") {
@@ -38,15 +39,15 @@ export default function PickFile() {
                 animationIn: ["animate__animated", "animate__fadeIn"],
                 animationOut: ["animate__animated", "animate__fadeOut"],
                 dismiss: {
-                  duration: 5000,
-                  onScreen: true
+                    duration: 5000,
+                    onScreen: true
                 }
-              });
+            });
             localStorage.setItem('fileID', res.data.fileID);
             getMetadata(file)
             setUpdateAbility(true)
-        }
 
+        }
     }
 
 
@@ -98,7 +99,7 @@ export default function PickFile() {
                 <AttachFileOutlinedIcon sx={{ fontSize: 20, marginRight: 2 }} />
                 Choose</Button>
 
-           
+
         </div>
     )
 }
