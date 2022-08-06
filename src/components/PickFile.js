@@ -48,6 +48,8 @@ export default function PickFile() {
             setUpdateAbility(true)
 
         }
+
+        console.log(res)
     }
 
 

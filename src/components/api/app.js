@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Store } from "react-notifications-component";
 import { baseUrl } from "../config/app";
 
 export const upload = async (data, handleProgress) => {
@@ -14,7 +15,25 @@ export const upload = async (data, handleProgress) => {
             const progress = ((progressEvent.loaded) / progressEvent.total) * 100;
             handleProgress(progress)
         }
+    }).catch(err => {
+        Store.addNotification({
+            title: "Oops!",
+            message: err.message,
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+                duration: 5000,
+                onScreen: true
+            }
+        });
+
+
     })
+
+
 }
 
 
