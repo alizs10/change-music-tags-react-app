@@ -16,7 +16,7 @@ export const upload = async (data, handleProgress) => {
             handleProgress(progress)
         }
     }).catch(err => {
-        notify("Oops!", err.message, "danger")
+        notify(err.message, "error")
     })
 
 
@@ -34,7 +34,7 @@ export const update = async data => {
     }).catch(error => {
 
         if (error.response.status == 422) {
-            notify(error.code, "Bad request call", "danger")
+            notify("Bad request call", "error")
         }
 
 

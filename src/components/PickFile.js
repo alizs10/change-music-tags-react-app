@@ -35,7 +35,7 @@ export default function PickFile() {
             localStorage.setItem('fileID', res.data.fileID);
             getMetadata(file)
             setUpdateAbility(true)
-            notify("Wonderful!", "Your music has been successfully uploaded", "success")
+            notify("Your music has been successfully uploaded", "success")
         }
 
     }

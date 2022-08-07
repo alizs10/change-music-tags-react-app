@@ -6,8 +6,8 @@ import ContextContainer from './components/container/ContextContainer';
 
 import MusicContext from './components/context/MusicContext';
 
-import { ReactNotifications } from 'react-notifications-component'
-import 'react-notifications-component/dist/theme.css'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
@@ -15,7 +15,7 @@ function App() {
 
   return (
     <div>
-      <ReactNotifications />
+      <ToastContainer />
       <ContextContainer>
         <Header />
         {fileExists ? <MusicContainer /> : null}
