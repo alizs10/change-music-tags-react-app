@@ -14,12 +14,12 @@ function App() {
   const { fileExists } = useContext(MusicContext);
 
   return (
-    <div className="App">
+    <div>
+      <ReactNotifications />
       <ContextContainer>
         <Header />
         {fileExists ? <MusicContainer /> : null}
       </ContextContainer>
-      <ReactNotifications />
     </div>
   );
 }

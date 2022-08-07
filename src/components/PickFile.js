@@ -84,8 +84,8 @@ export default function PickFile() {
         <div className="pick-file-container">
             <ProgressBar progressBar={progressBar} />
             <span className="upperCase">{title ? title : "pick your music and make it more awesome ..."}</span>
-            <input ref={fileInput} className="dnone" type="file" accept=".mp3" onChange={e => handleFile(e)} />
-            <Button variant="outlined" style={{ margin: "1rem" }} color="secondary" onClick={handlePickFile}>
+            <input ref={fileInput} hidden type="file" accept=".mp3" onChange={e => handleFile(e)} />
+            <Button className='pick-file-btn' variant="outlined" color="secondary" onClick={handlePickFile}>
                 <AttachFileOutlinedIcon sx={{ fontSize: 20, marginRight: 2 }} />
                 Choose</Button>
         </div>
