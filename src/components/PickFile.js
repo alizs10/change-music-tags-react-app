@@ -1,14 +1,16 @@
-import { Button } from '@mui/material'
-import AttachFileOutlinedIcon from '@mui/icons-material/AttachFileOutlined';
-import React, { useContext, useEffect, useRef, useState } from 'react'
-import styles from './PickFile.module.css'
-import MusicContext from './context/MusicContext'
-import { upload } from './api/app';
+import React, { useContext, useRef, useState } from 'react'
+
 import ProgressBar from './ProgressBar';
 
+import MusicContext from './context/MusicContext'
+import { upload } from './api/app';
 import { notify } from './helper/helpers';
 
+import { Button } from '@mui/material'
+import AttachFileOutlinedIcon from '@mui/icons-material/AttachFileOutlined';
+
 const jsmediatags = window.jsmediatags;
+
 
 export default function PickFile() {
 
@@ -79,15 +81,13 @@ export default function PickFile() {
     }
 
     return (
-        <div className={styles.container}>
+        <div className="pick-file-container">
             <ProgressBar progressBar={progressBar} />
-            <span className={styles.upperCase}>{title ? title : "pick your music and make it more awesome ..."}</span>
-            <input ref={fileInput} className={styles.dnone} type="file" accept=".mp3" onChange={e => handleFile(e)} />
+            <span className="upperCase">{title ? title : "pick your music and make it more awesome ..."}</span>
+            <input ref={fileInput} className="dnone" type="file" accept=".mp3" onChange={e => handleFile(e)} />
             <Button variant="outlined" style={{ margin: "1rem" }} color="secondary" onClick={handlePickFile}>
                 <AttachFileOutlinedIcon sx={{ fontSize: 20, marginRight: 2 }} />
                 Choose</Button>
-
-
         </div>
     )
 }
