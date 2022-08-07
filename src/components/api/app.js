@@ -1,6 +1,6 @@
 import axios from "axios";
-import { Store } from "react-notifications-component";
 import { baseUrl } from "../config/app";
+import { notify } from "../helper/helpers";
 
 export const upload = async (data, handleProgress) => {
     console.log(baseUrl);
@@ -16,21 +16,7 @@ export const upload = async (data, handleProgress) => {
             handleProgress(progress)
         }
     }).catch(err => {
-        Store.addNotification({
-            title: "Oops!",
-            message: err.message,
-            type: "danger",
-            insert: "top",
-            container: "top-right",
-            animationIn: ["animate__animated", "animate__fadeIn"],
-            animationOut: ["animate__animated", "animate__fadeOut"],
-            dismiss: {
-                duration: 5000,
-                onScreen: true
-            }
-        });
-
-
+        notify("Oops!", err.message, "danger")
     })
 
 
@@ -48,19 +34,7 @@ export const update = async data => {
     }).catch(error => {
 
         if (error.response.status == 422) {
-            Store.addNotification({
-                title: error.code,
-                message: "Bad request call",
-                type: "danger",
-                insert: "top",
-                container: "top-right",
-                animationIn: ["animate__animated", "animate__fadeIn"],
-                animationOut: ["animate__animated", "animate__fadeOut"],
-                dismiss: {
-                    duration: 5000,
-                    onScreen: true
-                }
-            })
+            notify(error.code, "Bad request call", "danger")
         }
 
 

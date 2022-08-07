@@ -6,7 +6,7 @@ import MusicContext from './context/MusicContext'
 import { upload } from './api/app';
 import ProgressBar from './ProgressBar';
 
-import { Store } from 'react-notifications-component';
+import { notify } from './helper/helpers';
 
 const jsmediatags = window.jsmediatags;
 
@@ -30,26 +30,12 @@ export default function PickFile() {
         let res = await upload(formData, setProgressBar);
 
         if (res.data.status === "success") {
-            Store.addNotification({
-                title: "Wonderful!",
-                message: "Your music has been successfully uploaded",
-                type: "success",
-                insert: "top",
-                container: "top-right",
-                animationIn: ["animate__animated", "animate__fadeIn"],
-                animationOut: ["animate__animated", "animate__fadeOut"],
-                dismiss: {
-                    duration: 5000,
-                    onScreen: true
-                }
-            });
             localStorage.setItem('fileID', res.data.fileID);
             getMetadata(file)
             setUpdateAbility(true)
-
+            notify("Wonderful!", "Your music has been successfully uploaded", "success")
         }
 
-        console.log(res)
     }
 
 
