@@ -11,14 +11,13 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
-  const { fileExists } = useContext(MusicContext);
 
   return (
     <div>
       <ToastContainer />
       <ContextContainer>
         <Header />
-        {fileExists ? <MusicContainer /> : null}
+        <MusicContainer />
       </ContextContainer>
     </div>
   );

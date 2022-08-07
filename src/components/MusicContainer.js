@@ -8,12 +8,12 @@ import MusicContext from './context/MusicContext'
 
 export default function MusicContainer() {
   
-  const { cover } = useContext(MusicContext)
+  const { fileExists, cover } = useContext(MusicContext)
   
-  return (
+  return fileExists ? (
     <div className="music-container">
       {cover ? <Cover cover={cover} /> : <BrokenImage />}
       <MetadataContainer />
     </div>
-  )
+  ) : null
 }

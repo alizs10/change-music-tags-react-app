@@ -3,7 +3,7 @@ import { baseUrl } from "../config/app";
 import { notify } from "../helper/helpers";
 
 export const upload = async (data, handleProgress) => {
-    console.log(baseUrl);
+
     let url = `${baseUrl}/upload`;
 
     return await axios.post(url, data, {
@@ -16,6 +16,7 @@ export const upload = async (data, handleProgress) => {
             handleProgress(progress)
         }
     }).catch(err => {
+        handleProgress(0)
         notify(err.message, "error")
     })
 
