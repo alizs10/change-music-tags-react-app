@@ -1,51 +1,24 @@
-import {   useState } from 'react';
+import { useContext, useState } from 'react';
 import './App.css';
-import MusicContext from './components/context/MusicContext';
 import Header from './components/Header';
 import MusicContainer from './components/MusicContainer';
 
 import { ReactNotifications } from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
+import ContextContainer from './components/container/ContextContainer';
+import MusicContext from './components/context/MusicContext';
 
 function App() {
 
-  const [fileExists, setFileExists] = useState(false)
-  const [title, setTitle] = useState("")
-  const [album, setAlbum] = useState("")
-  const [artist, setArtist] = useState("")
-  const [genre, setGenre] = useState("")
-  const [year, setYear] = useState("")
-  const [track, setTrack] = useState("")
-  const [cover, setCover] = useState("")
-  const [updateAbility, setUpdateAbility] = useState(true)
+  const { fileExists } = useContext(MusicContext);
 
   return (
     <div className="App">
-      <ReactNotifications />
-      <MusicContext.Provider value={{
-        fileExists,
-        setFileExists,
-        title,
-        setTitle,
-        album,
-        setAlbum,
-        artist,
-        setArtist,
-        genre,
-        setGenre,
-        year,
-        setYear,
-        track,
-        setTrack,
-        cover,
-        setCover,
-        updateAbility,
-        setUpdateAbility
-      }}>
-
+      <ContextContainer>
         <Header />
-        {fileExists ? <MusicContainer /> : ""}
-      </MusicContext.Provider>
+        {fileExists ? <MusicContainer /> : null}
+      </ContextContainer>
+      <ReactNotifications />
     </div>
   );
 }
